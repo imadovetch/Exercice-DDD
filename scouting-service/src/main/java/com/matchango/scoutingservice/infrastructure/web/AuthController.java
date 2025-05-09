@@ -1,8 +1,7 @@
 package com.matchango.scoutingservice.infrastructure.web;
 
 import com.matchango.scoutingservice.application.AuthService;
-import com.matchango.scoutingservice.infrastructure.web.dto.LoginRequest;
-import com.matchango.scoutingservice.infrastructure.web.dto.LoginResponse;
+import com.matchango.scoutingservice.infrastructure.web.dto.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +15,12 @@ import java.net.URI;
 public class AuthController {
 
     private final AuthService authService;
+
+    @GetMapping("/register")
+    public ResponseEntity<Void> redirectToKeycloakRegister() {
+        String url = authService.getKeycloakRegistrationUrl();
+        return ResponseEntity.status(302).location(URI.create(url)).build();
+    }
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
