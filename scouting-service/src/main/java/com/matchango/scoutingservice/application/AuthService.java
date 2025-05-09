@@ -56,4 +56,12 @@ public class AuthService {
                 ((Number) body.get("expires_in")).longValue()
         );
     }
+
+    public String getKeycloakRegistrationUrl() {
+        return keycloakBaseUrl + "/realms/" + realm + "/protocol/openid-connect/registrations" +
+                "?client_id=" + clientId +
+                "&response_type=code" +
+                "&scope=openid" +
+                "&redirect_uri=http://localhost:8081/swagger.html";
+    }
 }
